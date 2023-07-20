@@ -6,13 +6,26 @@ use App\Models\User;
 
 class UserRepository {
 
-    public function store($request){
+    public function store($data){
         try {
-            $user = User::create([
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => bcrypt($request->password)
-            ]);
+            return User::create($data);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function show($id){
+        try {
+            return User::find($id);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function update($data, $id){
+        try {
+            $user = $this->show($id);
+            $user->update($data);
     
             return $user;
         } catch (\Throwable $th) {

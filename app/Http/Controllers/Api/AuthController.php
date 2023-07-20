@@ -21,7 +21,12 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         //create user
-        $user = $this->userRepository->store($request);
+        $data = [
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => bcrypt($request->password)
+        ];
+        $user = $this->userRepository->store($data);
 
         //return response JSON user is created
         if($user) {
