@@ -153,7 +153,7 @@ class ProductController extends Controller
         if(!$product) {
             return response()->json([
                 'success' => false,
-                'product' => config('constants.failed_messages.not_found'),  
+                'message' => config('constants.failed_messages.not_found'),  
             ], 404);
         }
         
@@ -164,7 +164,7 @@ class ProductController extends Controller
         if($product) {
             return response()->json([
                 'success' => true,
-                'product' => config('constants.success_messages.delete'),  
+                'message' => config('constants.success_messages.delete'),  
             ], 200);
         }
     }

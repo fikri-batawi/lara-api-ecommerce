@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use Hash;
 
 class UserController extends Controller
 {
@@ -85,12 +86,31 @@ class UserController extends Controller
             ], 404);
         }
 
-        //Update user
-        $data = [
-            'name'      => $request->name,
-            'email'     => $request->email ?? $user->email,
-            'password'  => $request->password ? bcrypt($request->password) : $user->password,
-        ];
+        // Update password
+        if($request->oldPassword){
+            $oldPassword = $request->oldPassword;
+            $isValidPassword = Hash::check($oldPassword, $user->password);
+
+            if(!$isValidPassword){
+                //if auth success
+                return response()->json([
+                    'success' => false, 
+                    'message' => config('constants.failed_messages.login')   
+                ], 401);
+            }
+            
+            $data = [
+                'password'  => bcrypt($request->newPassword),
+            ];
+        }else{
+            //Update user
+            $data = [
+                'name'      => $request->name ?? $user->name,
+                'email'     => $request->email ?? $user->email,
+                'password'  => $request->password ? bcrypt($request->password) : $user->password,
+            ];
+        }
+
         $user = $this->userRepository->update($data, $id);
 
         //return response JSON user is updated
