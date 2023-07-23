@@ -6,6 +6,7 @@ return [
         'insert' => 'Failed insert data!',
         'login' => 'Wrong email or password!',
         'not_found' => 'Data not found.',
+        'conflict' => 'Data conflict'
     ],
     
     // Constant Success Messages

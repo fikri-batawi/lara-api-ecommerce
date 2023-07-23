@@ -86,6 +86,14 @@ class UserController extends Controller
             ], 404);
         }
 
+        $isConflictEmail = $request->email !== $user->email ? $this->userRepository->findByEmail($request->email) : false;
+        if($isConflictEmail) {
+            return response()->json([
+                'success' => false,
+                'message' => config('constants.failed_messages.conflict'),  
+            ], 409);
+        }
+
         // Update password
         if($request->oldPassword){
             $oldPassword = $request->oldPassword;

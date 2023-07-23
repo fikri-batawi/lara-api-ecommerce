@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\Repositories\CartRepository;
+use App\Repositories\ProductRepository;
 
 class CartUserController extends Controller
 {
-    private $userRepository, $cartRepository;
+    private $userRepository, $cartRepository, $productRepository;
     public function __construct(){
         $this->userRepository = new UserRepository();
         $this->cartRepository = new CartRepository();
+        $this->productRepository = new ProductRepository();
     }
     /**
      * Display a listing of the resource.
@@ -115,7 +117,14 @@ class CartUserController extends Controller
 
         // Delete
         foreach($carts as $cart){
+            // Delete
             $this->cartRepository->delete($cart->id);
+
+            // Update stock product
+            $product = $this->productRepository->show($cart->product_id);
+            $updateStock = $product->stock - $cart->quantity;
+            $request = new Request(['stock' => $updateStock]);
+            $this->productRepository->update($request, $product->id);
         }
 
         //return response JSON carts user is deleted

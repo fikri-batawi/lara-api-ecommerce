@@ -22,6 +22,14 @@ class UserRepository {
         }
     }
 
+    public function findByEmail($email){
+        try {
+            return User::where('email', $email)->first();
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
     public function update($data, $id){
         try {
             $user = $this->show($id);
