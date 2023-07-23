@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CartUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,6 @@ Route::resource('orders', OrderController::class);
 
 // USER
 Route::resource('users', UserController::class);
+
+// CART USER
+Route::resource('cart-users', CartUserController::class);

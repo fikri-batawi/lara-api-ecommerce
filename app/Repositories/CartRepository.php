@@ -36,6 +36,14 @@ class CartRepository {
         }
     }
 
+    public function cartUser($userId){
+        try {
+            return Cart::with('product')->where('user_id', $userId)->get();
+        } catch (\Throwable $th) {
+            return false;
+        }
+    } 
+
     public function update($request, $id){
         try {
             $cart = $this->show($id);
