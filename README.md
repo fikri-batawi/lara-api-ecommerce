@@ -43,7 +43,7 @@ php artisan key:generate
 
 **Running App**
 ```
-php artisan serve
+php artisan serve --port=8000
 ```
 
 ## Create Product
