@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CartUserController;
+use App\Http\Controllers\Api\UserAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,6 @@ Route::resource('users', UserController::class);
 
 // CART USER
 Route::resource('cart-users', CartUserController::class);
+
+// USER ADMIN
+Route::resource('user-admins', UserAdminController::class);
