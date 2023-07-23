@@ -36,9 +36,11 @@ php artisan migrate
 php artisan db:seed --class=UserAdminSeeder
 ```
 
-**Generate Key**
+**Generate Key & JWT**
 ```
 php artisan key:generate
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
 ```
 
 **Running App**
